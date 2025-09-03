@@ -20,7 +20,7 @@ phases:
   post_build:
     commands:
       - echo "Pushing Docker Image..."
-      - docker push reecekirkham24/countries.api:latest
+      - docker push reecekirkham24/countries-api:latest
       
 artifacts: 
   files:
