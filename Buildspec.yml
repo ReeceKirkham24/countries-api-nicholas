@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    SECRET_USERNAME: "pipeline-docker-cred:username"
+    SECRET_PASSWORD: "pipeline-docker-cred:password"
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging into DockerHub
+      - echo "$SECRET_PASSWORD" | docker login -u "$SECRET_USERNAME" --password-stdin
+
+
+  build:
+    commands:
+    - echo "Building Docker Image..."
+    - docker build -t reecekirkham24/countries-api:latest .
+
+  post_build:
+    commands:
+      - echo "Pushing Docker Image..."
+      - docker push reecekirkham24/countries.api:latest
+      
+artifacts: 
+  files:
+    - Dockerfile
